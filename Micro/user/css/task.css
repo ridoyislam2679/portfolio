@@ -1,0 +1,85 @@
+:root {
+	--primary: #4361ee;
+	--secondary: #3a0ca3;
+	--accent: #4895ef;
+	--light: #f8f9fa;
+	--dark: #212529;
+	--gray: #6c757d;
+}
+
+body {
+	background-color: #f5f7ff;
+}
+img.logo {
+    height: 40px;
+    width: 79px;
+}
+.with-btn a {
+    text-decoration: none;
+}
+.with-btn a:hover {
+    color: #ffffff;
+}
+.task-card {
+	transition: all 0.3s ease;
+	border-radius: 10px;
+	overflow: hidden;
+	border: none;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.task-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.task-img {
+	height: 150px;
+	object-fit: cover;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.task-category {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background-color: var(--primary);
+	color: white;
+	padding: 3px 10px;
+	border-radius: 20px;
+	font-size: 0.8rem;
+}
+
+.reward-badge {
+	background-color: #4cc9f0;
+	color: white;
+	font-weight: bold;
+}
+
+.task-difficulty {
+	font-size: 0.9rem;
+}
+
+.difficulty-easy {
+	color: #2ecc71;
+}
+
+.difficulty-medium {
+	color: #f39c12;
+}
+
+.difficulty-hard {
+	color: #e74c3c;
+}
+
+.filter-btn.active {
+	background-color: var(--primary);
+	color: white;
+}
+
+.user-avatar {
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	object-fit: cover;
+}

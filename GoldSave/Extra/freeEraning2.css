@@ -1,0 +1,356 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Inter', sans-serif;
+	#background: linear-gradient(180deg, #0a0a1a 0%, #0f0f2a 50%, #1a1a3e 100%);
+	background: #000000;
+	min-height: 100vh;
+	color: #fff;
+	padding-bottom: 80px;
+}
+
+/* Main Container */
+.main-content {
+	max-width: 500px;
+	margin: 0 auto;
+	padding: 0 16px;
+}
+
+/* Top Header */
+.top-header {
+	padding: 20px 0 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.logo {
+	font-size: 1.5rem;
+	font-weight: 800;
+	background: linear-gradient(135deg, #FFD700, #FFA500);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.logo i {
+	color: #FFD700;
+}
+
+.back-btn {
+	background: rgba(255, 215, 0, 0.15);
+	border: none;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	color: #FFD700;
+	font-size: 18px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+}
+
+.back-btn:active {
+	transform: scale(0.95);
+}
+
+/* Header Section */
+.ads-header {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.ads-header h1 {
+	font-size: 24px;
+	font-weight: 800;
+	background: linear-gradient(135deg, #FFD700, #FFA500);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	margin-bottom: 5px;
+}
+
+.ads-header p {
+	font-size: 13px;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+/* Earnings Card */
+.earnings-card {
+	background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 165, 0, 0.08));
+	border-radius: 24px;
+	padding: 20px;
+	margin-bottom: 20px;
+	border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.earnings-card h3 {
+	font-size: 16px;
+	font-weight: 600;
+	margin-bottom: 15px;
+	color: rgba(255, 255, 255, 0.8);
+}
+
+.earnings-stats {
+	display: flex;
+	gap: 15px;
+}
+
+.stat-item {
+	flex: 1;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 16px;
+	padding: 15px;
+}
+
+.stat-item .label {
+	font-size: 12px;
+	color: rgba(255, 255, 255, 0.5);
+	margin-bottom: 8px;
+}
+
+.stat-item .value {
+	font-size: 24px;
+	font-weight: 800;
+	color: #FFD700;
+}
+
+/* Daily Limit Card */
+.daily-limit-card {
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 16px;
+	padding: 15px;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.limit-info {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.limit-info i {
+	font-size: 24px;
+	color: #FFD700;
+}
+
+.limit-text {
+	font-size: 14px;
+}
+
+.limit-count {
+	font-size: 20px;
+	font-weight: 700;
+	color: #FFD700;
+}
+
+.limit-warning {
+	font-size: 11px;
+	color: rgba(255, 255, 255, 0.4);
+}
+
+/* New Ads Grid - Redesigned */
+.ads-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 15px;
+	margin-bottom: 20px;
+}
+
+.ad-card {
+	background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 215, 0, 0.03));
+	border-radius: 20px;
+	padding: 18px 12px;
+	text-align: center;
+	border: 1px solid rgba(255, 215, 0, 0.15);
+	transition: all 0.2s ease;
+	position: relative;
+	overflow: hidden;
+}
+
+.ad-card::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+	transition: left 0.5s ease;
+}
+
+.ad-card:hover::before {
+	left: 100%;
+}
+
+.ad-icon {
+	width: 55px;
+	height: 55px;
+	background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 165, 0, 0.08));
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto 12px;
+}
+
+.ad-icon i {
+	font-size: 28px;
+	color: #FFD700;
+}
+
+.ad-title {
+	font-size: 14px;
+	font-weight: 600;
+	margin-bottom: 5px;
+}
+
+.ad-reward {
+	font-size: 12px;
+	color: #FFD700;
+	font-weight: 500;
+	margin-bottom: 12px;
+}
+
+.watch-ad-btn {
+	background: linear-gradient(135deg, #FFD700, #FFA500);
+	border: none;
+	padding: 8px 16px;
+	border-radius: 50px;
+	font-weight: 600;
+	font-size: 12px;
+	color: #0a0a1a;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	width: 100%;
+}
+
+.watch-ad-btn:active {
+	transform: scale(0.96);
+}
+
+.watch-ad-btn:disabled {
+	background: rgba(255, 255, 255, 0.1);
+	color: rgba(255, 255, 255, 0.3);
+	cursor: not-allowed;
+	transform: none;
+}
+
+/* Modal Styles */
+.modal-content {
+	background: linear-gradient(180deg, #0f0f2a 0%, #1a1a3e 100%);
+	border: 1px solid rgba(255, 215, 0, 0.2);
+	border-radius: 24px;
+	color: #fff;
+}
+
+.modal-header {
+	border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.modal-header .btn-close {
+	filter: invert(1);
+}
+
+.modal-footer {
+	border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.timer-display {
+	font-size: 48px;
+	font-weight: 800;
+	color: #FFD700;
+	margin: 15px 0;
+}
+
+.btn-success {
+	background: linear-gradient(135deg, #FFD700, #FFA500);
+	border: none;
+	color: #0a0a1a;
+	font-weight: 600;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(10, 10, 26, 0.95);
+	backdrop-filter: blur(20px);
+	border-top: 1px solid rgba(255, 215, 0, 0.15);
+	padding: 10px 20px;
+	max-width: 500px;
+	margin: 0 auto;
+	z-index: 1000;
+}
+
+.nav-items {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.nav-item {
+	text-align: center;
+	text-decoration: none;
+	color: rgba(255, 255, 255, 0.5);
+	transition: all 0.2s ease;
+	flex: 1;
+}
+
+.nav-item i {
+	font-size: 22px;
+	display: block;
+	margin-bottom: 4px;
+}
+
+.nav-item span {
+	font-size: 11px;
+}
+
+.nav-item.active {
+	color: #FFD700;
+}
+
+.nav-item:active {
+	transform: scale(0.95);
+}
+
+@media (max-width: 480px) {
+	.ads-grid {
+		gap: 12px;
+	}
+	
+	.ad-card {
+		padding: 14px 10px;
+	}
+	
+	.ad-icon {
+		width: 48px;
+		height: 48px;
+	}
+	
+	.ad-icon i {
+		font-size: 24px;
+	}
+	
+	.ad-title {
+		font-size: 12px;
+	}
+	
+	.stat-item .value {
+		font-size: 18px;
+	}
+}

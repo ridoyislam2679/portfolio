@@ -1,0 +1,46 @@
+/* Unique CSS for FAQ page */
+.faq-hero {
+	background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/banner-images/headphone.png');
+	background-size: cover;
+	background-position: center;
+	color: white;
+	padding: 100px 0;
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.faq-section {
+	padding: 60px 0;
+}
+
+.section-title {
+	position: relative;
+	margin-bottom: 40px;
+	padding-bottom: 15px;
+}
+
+.section-title h2 {
+	display: inline-block;
+	background: #3498db;
+	color: white;
+	padding: 8px 20px;
+	border-radius: 30px;
+	font-size: 1.3rem;
+}
+
+.accordion-button:not(.collapsed) {
+	background-color: #e6f7ff;
+	color: #2c3e50;
+	font-weight: 500;
+}
+
+.accordion-button:focus {
+	box-shadow: none;
+	border-color: rgba(0,0,0,.125);
+}
+
+@media (max-width: 767.98px) {
+	.faq-hero {
+		padding: 60px 0;
+	}
+}

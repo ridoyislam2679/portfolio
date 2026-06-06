@@ -1,0 +1,55 @@
+ /* Additional page-specific styles if needed */
+.form-image-icon {
+	width: 100px;
+	height: 100px;
+	background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 165, 0, 0.08));
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto 20px;
+	border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.form-image-icon i {
+	font-size: 50px;
+	color: #FFD700;
+}
+.image-container {
+  display: flex;
+  justify-content: center; /* Horizontal */
+  align-items: center;     /* Vertical */
+  height: 30vh;           /* Container must have a height */
+}
+.login-image{
+	height: 120px;
+	width: 120px;
+}
+
+
+#installPopup {
+    background: linear-gradient(135deg, #fff, #fff8dc);
+	display: none;
+    width: 90%;
+    max-width: 360px;
+    margin: 20px auto;
+    #background: #ffffff;
+    padding: 25px 20px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    border: 2px solid #FFD700;
+    animation: popupShow 0.35s ease;
+	color: #000;
+}
+
+@keyframes popupShow {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

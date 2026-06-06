@@ -1,0 +1,104 @@
+/* Unique CSS for contact page */
+.contact-hero {
+	background: linear-gradient(#710f54, rgb(109 9 9 / 70%)), url(images/banner-images/headphone.png);
+	background-size: cover;
+	background-position: center;
+	color: white;
+	padding: 100px 0;
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.contact-section {
+	padding: 60px 0;
+}
+
+.map-container {
+	height: 400px;
+	border-radius: 8px;
+	overflow: hidden;
+	margin-bottom: 40px;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.social-links {
+	margin: 30px 0;
+}
+
+.social-link {
+	display: inline-block;
+	margin: 0 10px;
+	font-size: 1.5rem;
+	color: #3498db;
+	transition: transform 0.3s;
+}
+
+.social-link:hover {
+	transform: translateY(-5px);
+	color: #2c3e50;
+}
+
+.team-card {
+	background: white;
+	border-radius: 8px;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+	padding: 20px;
+	margin-bottom: 30px;
+	text-align: center;
+	transition: transform 0.3s;
+}
+
+.team-card:hover {
+	transform: translateY(-10px);
+}
+
+.team-img {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin: 0 auto 20px;
+	border: 5px solid #3498db;
+}
+
+.contact-info {
+	margin-top: 20px;
+}
+
+.contact-info p {
+	margin-bottom: 5px;
+	font-size: 20px;
+}
+
+.contact-info i {
+	color: #3498db;
+	margin-right: 10px;
+	width: 20px;
+}
+.contact-info a {
+	text-decoration: none;
+}
+
+@media (max-width: 767.98px) {
+	.contact-hero {
+		padding: 60px 0;
+	}
+	
+	.map-container {
+		height: 300px;
+	}
+}
+.modal-image{
+	height: 350px;
+	width: 100%;
+	padding: 10px;
+}
+.contact-area{
+	font-size: 20px;
+}
+.fab:hover {
+    color: blue;
+}
+.social-link:hover {
+    color: blue;
+}

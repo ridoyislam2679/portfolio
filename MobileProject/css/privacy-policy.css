@@ -1,0 +1,45 @@
+/* Unique CSS for privacy policy page */
+.privacy-hero {
+	background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/banner-images/headphone.png');
+	background-size: cover;
+	background-position: center;
+	color: white;
+	padding: 100px 0;
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.privacy-content {
+	padding: 60px 0;
+	line-height: 1.8;
+}
+
+.privacy-section {
+	margin-bottom: 40px;
+}
+
+.privacy-section h2 {
+	color: #2c3e50;
+	padding-bottom: 10px;
+	border-bottom: 2px solid #3498db;
+	margin-bottom: 20px;
+}
+
+.privacy-section h3 {
+	color: #3498db;
+	margin: 25px 0 15px;
+}
+
+.highlight-box {
+	background: #f8f9fa;
+	border-left: 4px solid #3498db;
+	padding: 20px;
+	margin: 20px 0;
+	border-radius: 0 4px 4px 0;
+}
+
+@media (max-width: 767.98px) {
+	.privacy-hero {
+		padding: 60px 0;
+	}
+}

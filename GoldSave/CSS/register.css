@@ -1,0 +1,104 @@
+.form-image-icon {
+	width: 100px;
+	height: 100px;
+	background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 165, 0, 0.08));
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto 20px;
+	border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.form-image-icon i {
+	font-size: 50px;
+	color: #FFD700;
+}
+
+.password-strength {
+	margin-top: 8px;
+	font-size: 12px;
+}
+
+.strength-weak { color: #ff6b6b; }
+.strength-medium { color: #ffd700; }
+.strength-strong { color: #6bff8b; }
+
+.terms {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 20px 0;
+}
+
+.terms input {
+	width: 18px;
+	height: 18px;
+	cursor: pointer;
+}
+
+.terms label {
+	font-size: 13px;
+	color: rgba(255, 255, 255, 0.7);
+	margin: 0;
+}
+
+.terms a {
+	color: #FFD700;
+	text-decoration: none;
+}
+
+/* Additional styles for gender radio */
+.gender-group {
+	margin-bottom: 20px;
+}
+
+.gender-label {
+	display: block;
+	margin-bottom: 10px;
+	font-size: 14px;
+	font-weight: 500;
+	color: rgba(255, 255, 255, 0.8);
+}
+
+.gender-label i {
+	color: #FFD700;
+	margin-right: 8px;
+}
+
+.gender-options {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+.gender-option {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+}
+
+.gender-option input[type="radio"] {
+	width: 18px;
+	height: 18px;
+	cursor: pointer;
+	accent-color: #FFD700;
+}
+
+.gender-option label {
+	font-size: 14px;
+	color: rgba(255, 255, 255, 0.8);
+	cursor: pointer;
+	margin: 0;
+}
+
+.gender-option i {
+	font-size: 16px;
+	margin-right: 4px;
+}
+
+.gender-option .fa-mars { color: #4a9eff; }
+.gender-option .fa-venus { color: #ff69b4; }
+.gender-option .fa-genderless { color: #FFD700; }
+

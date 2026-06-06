@@ -1,0 +1,144 @@
+/* Custom CSS Variables */
+:root {
+	--primary: #4361ee;
+	--secondary: #3a0ca3;
+	--accent: #4895ef;
+	--light: #f8f9fa;
+	--dark: #212529;
+	--gray: #6c757d;
+	--success: #2ecc71;
+}
+
+/* Custom Background */
+.custom-bg-body {
+   background-color: #0f172a;
+   color: #ffffff;
+}
+.deposite-card{
+	
+}
+
+img.logo {
+    height: 40px;
+    width: 79px;
+}
+
+/* Custom Card Styles */
+.custom-card {
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0 5px 15px #000000c7;
+	transition: all 0.3s ease;
+	overflow: hidden;
+	padding: 30px;
+}
+
+.custom-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Custom Balance Card */
+.custom-balance-card {
+	background: linear-gradient(135deg, var(--primary), var(--secondary));
+	color: white;
+	border-radius: 10px;
+}
+
+h1.deposite-number {
+	font-size: 25px;
+	color: #cd1e1e;
+}
+
+span.input-group-text {
+    height: 100%;
+}
+
+/* Custom Payment Method Card */
+.custom-method-card {
+	cursor: pointer;
+	border: 2px solid transparent;
+	transition: all 0.3s;
+}
+
+.custom-method-card:hover, 
+.custom-method-card.active {
+	border-color: var(--primary);
+	background-color: rgba(67, 97, 238, 0.05);
+}
+
+.custom-method-card.active .custom-select-indicator {
+	opacity: 1;
+}
+
+.custom-select-indicator {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: var(--primary);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 0.7rem;
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+/* Custom Payment Logo */
+.custom-method-logo {
+	width: 60px;
+	height: 60px;
+	object-fit: contain;
+	margin-right: 15px;
+	border-radius: 10px;
+	background-color: white;
+	padding: 5px;
+}
+
+/* Custom Coming Soon Badge */
+.custom-coming-soon {
+	position: relative;
+	opacity: 0.7;
+}
+
+.custom-coming-soon::after {
+	content: "Coming Soon";
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background-color: #f39c12;
+	color: white;
+	padding: 2px 8px;
+	border-radius: 20px;
+	font-size: 0.7rem;
+}
+
+/* Custom Form Focus */
+.custom-form-control:focus {
+	border-color: var(--primary);
+	box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+}
+
+/* Custom Success Alert */
+.custom-success-alert {
+	border-left: 4px solid var(--success);
+}
+
+/* Custom Transaction History */
+.custom-transaction-item {
+	border-left: 3px solid transparent;
+	transition: all 0.3s;
+}
+
+.custom-transaction-item:hover {
+	border-left-color: var(--primary);
+	background-color: var(--light);
+}
+
+.custom-transaction-success {
+	border-left-color: var(--success);
+}

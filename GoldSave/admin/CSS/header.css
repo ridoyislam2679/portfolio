@@ -1,0 +1,276 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Inter', sans-serif;
+	background: #0a0a1a;
+	color: #fff;
+	padding-top: 70px;
+}
+
+.logoBTN{
+    color: #ffd700;
+	text-decoration: none;
+}
+
+/* Mobile Menu Toggle Button */
+.menu-toggle {
+	display: none;
+	position: fixed;
+	top: 18px;
+	left: 15px;
+	z-index: 1001;
+	background: rgba(255, 215, 0, 0.15);
+	border: 1px solid rgba(255, 215, 0, 0.3);
+	width: 40px;
+	height: 40px;
+	border-radius: 10px;
+	color: #FFD700;
+	font-size: 20px;
+	cursor: pointer;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Sidebar Styles */
+.sidebar {
+	background: linear-gradient(180deg, #0f0f2a 0%, #0a0a1a 100%);
+	min-height: 100vh;
+	border-right: 1px solid rgba(255, 215, 0, 0.15);
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 260px;
+	z-index: 1000;
+	transition: all 0.3s ease;
+	overflow-y: auto;
+}
+
+.sidebar-logo {
+	padding: 20px;
+	text-align: center;
+	border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+	margin-bottom: 20px;
+}
+
+.sidebar-logo img{
+	width: 100%;
+	height: 1000%;
+}
+
+.sidebar-logo h2 {
+	font-size: 1.3rem;
+	font-weight: 800;
+	background: linear-gradient(135deg, #FFD700, #FFA500);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.sidebar-logo h2 i {
+	color: #FFD700;
+}
+
+.sidebar-logo p {
+	font-size: 11px;
+	color: rgba(255, 215, 0, 0.6);
+	margin-top: 5px;
+}
+
+.sidebar-menu {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 20px 0;
+}
+
+.sidebar-menu li {
+	margin-bottom: 5px;
+}
+
+.sidebar-menu li a {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 20px;
+	color: rgba(255, 255, 255, 0.7);
+	text-decoration: none;
+	transition: all 0.2s ease;
+	border-left: 3px solid transparent;
+}
+
+.sidebar-menu li a i {
+	width: 22px;
+	font-size: 18px;
+}
+
+.sidebar-menu li a span {
+	font-size: 14px;
+}
+
+.sidebar-menu li a:hover {
+	background: rgba(255, 215, 0, 0.08);
+	color: #FFD700;
+	border-left-color: #FFD700;
+}
+
+.sidebar-menu li.active a {
+	background: rgba(255, 215, 0, 0.1);
+	color: #FFD700;
+	border-left-color: #FFD700;
+}
+
+/* Main Content */
+.main-content {
+	margin-left: 260px;
+	padding: 20px;
+	background: #000;
+}
+
+/* Fixed Top Header */
+.top-header {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 260px;
+	background: rgba(10, 10, 26, 0.95);
+	backdrop-filter: blur(10px);
+	padding: 12px 25px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+	z-index: 999;
+}
+
+.page-title h1 {
+	font-size: 20px;
+	font-weight: 700;
+	margin: 0;
+}
+
+.page-title p {
+	font-size: 12px;
+	color: rgba(255, 255, 255, 0.5);
+	margin: 3px 0 0;
+}
+
+.admin-info {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+.admin-name {
+	text-align: right;
+}
+
+.admin-name .name {
+	font-weight: 600;
+	color: #FFD700;
+	font-size: 14px;
+}
+
+.admin-name .role {
+	font-size: 10px;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+/* Logout Form */
+.logout-form {
+	margin: 0;
+}
+
+.logout-btn {
+	background: rgba(220, 53, 69, 0.15);
+	border: 1px solid rgba(220, 53, 69, 0.3);
+	padding: 8px 18px;
+	border-radius: 10px;
+	color: #ff6b6b;
+	font-weight: 600;
+	font-size: 13px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.logout-btn:hover {
+	background: #dc3545;
+	color: white;
+	border-color: #dc3545;
+}
+
+/* Mobile Responsive */
+@media (max-width: 992px) {
+	.menu-toggle {
+		display: flex;
+	}
+	
+	.sidebar {
+		left: -260px;
+	}
+	
+	.sidebar.active {
+		left: 0;
+	}
+	
+	.top-header {
+		left: 0;
+		padding: 15px 15px;
+	}
+	
+	.main-content {
+		margin-left: 0;
+		padding: 15px;
+	}
+	
+	.page-title h1 {
+		font-size: 18px;
+		margin-top: 11px;
+		margin-left: 50px;
+	}
+	
+	.page-title p {
+		display: none;
+	}
+	
+	.admin-name .name {
+		font-size: 12px;
+	}
+	
+	.admin-name .role {
+		display: none;
+	}
+	
+	.logout-btn {
+		padding: 6px 12px;
+		font-size: 12px;
+	}
+}
+
+
+@media (max-width: 480px) {
+	.admin-name {
+		display: none;
+	}
+}
+
+/* Overlay for mobile */
+.sidebar-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 999;
+}
+
+.sidebar-overlay.active {
+	display: block;
+}

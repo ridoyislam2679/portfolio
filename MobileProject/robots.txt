@@ -1,0 +1,13 @@
+# Allow all search engines
+User-agent: *
+
+# Block admin panel (search engine যেন crawl না করে)
+Disallow: /MobileProject/admin/
+
+# Block some system folders (যদি থাকে)
+Disallow: /MobileProject/phpmyadmin/
+Disallow: /MobileProject/xampp/
+Disallow: /MobileProject/server-status/
+
+# Sitemap location
+Sitemap: https://mobilereviewbd.com/sitemap.xml

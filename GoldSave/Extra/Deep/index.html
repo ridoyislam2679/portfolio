@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Dashboard - Gold Kinen</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Swiper CSS for Donation Slider -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #0a0a1a 0%, #0f0f2a 50%, #1a1a3e 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding-bottom: 80px;
+        }
+        
+        /* Main Container */
+        .dashboard-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        /* Top Header */
+        .top-header {
+            padding: 16px 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .logo i {
+            color: #FFD700;
+        }
+        
+        .notification-icon {
+            background: rgba(255, 215, 0, 0.15);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4444;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* User Profile Card */
+        .profile-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+        
+        .profile-row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .profile-image {
+            position: relative;
+        }
+        
+        .profile-image img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #FFD700;
+        }
+        
+        .profile-image .default-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #0a0a1a;
+        }
+        
+        .join-date {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 8px;
+            text-align: center;
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .verified-badge {
+            background: #1a73e8;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: white;
+        }
+        
+        .verify-btn {
+            background: transparent;
+            border: 1px solid #FFD700;
+            color: #FFD700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .verify-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .verify-btn.hidden {
+            display: none;
+        }
+        
+        .balance-info {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+        }
+        
+        .balance-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .balance-amount {
+            font-size: 24px;
+            font-weight: 800;
+            color: #FFD700;
+        }
+        
+        /* Gold Card */
+        .gold-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 165, 0, 0.08));
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .gold-icon {
+            font-size: 40px;
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+        
+        .gold-amount {
+            font-size: 28px;
+            font-weight: 800;
+            color: #FFD700;
+        }
+        
+        .gold-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        
+        .btn-buy {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #0a0a1a;
+        }
+        
+        .btn-sell {
+            background: transparent;
+            border: 1.5px solid #FFD700;
+            color: #FFD700;
+        }
+        
+        .btn-collect {
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: #FFD700;
+        }
+        
+        .action-btn:active {
+            transform: scale(0.96);
+        }
+        
+        /* Coin Row */
+        .coin-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .coin-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .coin-icon {
+            font-size: 32px;
+            color: #FFD700;
+        }
+        
+        .coin-amount {
+            font-size: 22px;
+            font-weight: 700;
+        }
+        
+        .mobile-recharge-btn {
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        
+        /* Donation Section */
+        .donation-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .donation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .donation-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .total-donors {
+            text-align: right;
+        }
+        
+        .total-donors-count {
+            font-size: 20px;
+            font-weight: 700;
+            color: #FFD700;
+        }
+        
+        .donation-slider {
+            margin-bottom: 15px;
+        }
+        
+        .donate-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
+            border-radius: 16px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+        }
+        
+        .donate-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 8px;
+        }
+        
+        .donate-card .default-donate-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-size: 35px;
+        }
+        
+        .donate-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .donate-cause {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .donate-btn {
+            background: #ff4444;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+        }
+        
+        /* Scrolling Text */
+        .scrolling-text {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .scrolling-text marquee {
+            color: #FFD700;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .social-icon i {
+            font-size: 24px;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+        
+        .fb { color: #1877f2; border: 1px solid #1877f2; }
+        .whatsapp { color: #25d366; border: 1px solid #25d366; }
+        .telegram { color: #0088cc; border: 1px solid #0088cc; }
+        .youtube { color: #ff0000; border: 1px solid #ff0000; }
+        
+        /* Marketing Drop Button */
+        .marketing-drop {
+            width: 100%;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            color: #0a0a1a;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        /* Bottom Navigation - Mobile App Style */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 215, 0, 0.15);
+            padding: 10px 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            z-index: 1000;
+        }
+        
+        .nav-items {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-item {
+            text-align: center;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.5);
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+        
+        .nav-item i {
+            font-size: 22px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .nav-item span {
+            font-size: 11px;
+        }
+        
+        .nav-item.active {
+            color: #FFD700;
+        }
+        
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+        
+        /* Swiper Customization */
+        .swiper {
+            width: 100%;
+            padding: 5px 0;
+        }
+        
+        .swiper-slide {
+            width: auto !important;
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .dashboard-container {
+                padding: 0 12px;
+            }
+            
+            .user-name {
+                font-size: 18px;
+            }
+            
+            .gold-amount {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="logo">
+                <i class="fas fa-coins"></i> Gold Kinen
+            </div>
+            <div class="notification-icon">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </div>
+        </div>
+        
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="profile-row">
+                <div class="profile-image">
+                    <div class="default-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="join-date">
+                        <i class="fas fa-calendar-alt"></i> Joined: 15 Jan 2025
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <div class="user-name">
+                        Md. Rahim Uddin
+                        <span id="verifiedBadge" class="verified-badge" style="display: none;">
+                            <i class="fas fa-check"></i>
+                        </span>
+                    </div>
+                    <div class="mb-2">
+                        <button id="verifyBtn" class="verify-btn">
+                            <i class="fas fa-shield-alt"></i> Verify Account
+                        </button>
+                    </div>
+                    <div class="balance-info">
+                        <div class="balance-label">Total Balance</div>
+                        <div class="balance-amount">₦ 12,500</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Gold Card -->
+        <div class="gold-card">
+            <div class="gold-icon">
+                <i class="fas fa-gem"></i>
+            </div>
+            <div class="gold-amount">2.5 Gram</div>
+            <div class="gold-label">Total Gold</div>
+            <div class="action-buttons">
+                <button class="action-btn btn-buy" onclick="location.href='buy-gold.html'">
+                    <i class="fas fa-shopping-cart"></i> Buy Gold
+                </button>
+                <button class="action-btn btn-sell" onclick="location.href='sell-gold.html'">
+                    <i class="fas fa-exchange-alt"></i> Sell Gold
+                </button>
+                <button class="action-btn btn-collect" onclick="location.href='collect-gold.html'">
+                    <i class="fas fa-hand-holding-heart"></i> Collect
+                </button>
+            </div>
+        </div>
+        
+        <!-- Coin Row -->
+        <div class="coin-row">
+            <div class="coin-info">
+                <div class="coin-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <div>
+                    <div class="coin-amount">1,250 Coins</div>
+                    <div style="font-size: 11px; color: rgba(255,255,255,0.5);">1 Coin = 1 Gram Gold</div>
+                </div>
+            </div>
+            <button class="mobile-recharge-btn" onclick="location.href='recharge.html'">
+                <i class="fas fa-mobile-alt"></i> Mobile Recharge
+            </button>
+        </div>
+        
+        <!-- Donation Section -->
+        <div class="donation-section">
+            <div class="donation-header">
+                <div class="donation-title">
+                    <i class="fas fa-hand-holding-heart" style="color: #ff4444;"></i> Help Others
+                </div>
+                <div class="total-donors">
+                    <div class="total-donors-count">1,234</div>
+                    <div style="font-size: 10px;">Total Donors</div>
+                </div>
+            </div>
+            
+            <!-- Donation Slider -->
+            <div class="donation-slider">
+                <div class="swiper donationSwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="donate-card">
+                                <div class="default-donate-img">
+                                    <i class="fas fa-child"></i>
+                                </div>
+                                <div class="donate-name">Rina Begum</div>
+                                <div class="donate-cause">Medical Help</div>
+                                <small style="font-size: 10px;">₦ 2,500 raised</small>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="donate-card">
+                                <div class="default-donate-img">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="donate-name">Karim Family</div>
+                                <div class="donate-cause">Food Support</div>
+                                <small style="font-size: 10px;">₦ 1,200 raised</small>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="donate-card">
+                                <div class="default-donate-img">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="donate-name">Sadia Akter</div>
+                                <div class="donate-cause">Education</div>
+                                <small style="font-size: 10px;">₦ 3,000 raised</small>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="donate-card">
+                                <div class="default-donate-img">
+                                    <i class="fas fa-wheelchair"></i>
+                                </div>
+                                <div class="donate-name">Abdul Gafur</div>
+                                <div class="donate-cause">Disability Aid</div>
+                                <small style="font-size: 10px;">₦ 1,800 raised</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="donate-btn" onclick="location.href='donate.html'">
+                <i class="fas fa-heart"></i> Donate Now
+            </button>
+        </div>
+        
+        <!-- Scrolling Text / Live Offers -->
+        <div class="scrolling-text">
+            <marquee behavior="scroll" direction="left" scrollamount="5">
+                🎉 Special Offer: Buy 5 Gram Gold & Get 100 Coins Free! | 🎁 Refer a Friend & Earn 50 Coins | 
+                ⚡ Limited Time: 10% Bonus on First Gold Purchase | 🔥 Daily Check-in Bonus Available!
+            </marquee>
+        </div>
+        
+        <!-- Social Links -->
+        <div class="social-links">
+            <a href="#" class="social-icon fb"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon whatsapp"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="social-icon telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="#" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
+        </div>
+        
+        <!-- Marketing Drop Button -->
+        <button class="marketing-drop" onclick="location.href='marketing.html'">
+            <i class="fas fa-chart-line"></i> Marketing & Drops
+        </button>
+    </div>
+    
+    <!-- Bottom Navigation - Mobile App Style -->
+    <div class="bottom-nav">
+        <div class="nav-items">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Profile</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-gift"></i>
+                <span>Free Earning</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>My Team</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Setting</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <script>
+        // Verify Button Functionality
+        const verifyBtn = document.getElementById('verifyBtn');
+        const verifiedBadge = document.getElementById('verifiedBadge');
+        
+        if (verifyBtn) {
+            verifyBtn.addEventListener('click', function() {
+                // Hide verify button
+                this.classList.add('hidden');
+                // Show verified badge
+                verifiedBadge.style.display = 'inline-flex';
+                // Optional: Save to localStorage
+                localStorage.setItem('isVerified', 'true');
+                // Show success message
+                showToast('Account Verified Successfully!', 'success');
+            });
+        }
+        
+        // Check if already verified
+        if (localStorage.getItem('isVerified') === 'true') {
+            verifyBtn.classList.add('hidden');
+            verifiedBadge.style.display = 'inline-flex';
+        }
+        
+        // Toast notification function
+        function showToast(message, type) {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${type === 'success' ? '#28a745' : '#dc3545'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 50px;
+                font-size: 14px;
+                z-index: 9999;
+                animation: fadeInUp 0.3s ease;
+                white-space: nowrap;
+            `;
+            toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i> ${message}`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'fadeOutDown 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        
+        // Add animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateX(-50%) translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(-50%) translateY(0);
+                }
+            }
+            @keyframes fadeOutDown {
+                from {
+                    opacity: 1;
+                    transform: translateX(-50%) translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(-50%) translateY(20px);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize Swiper for Donation Slider
+        const donationSwiper = new Swiper('.donationSwiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 12,
+            freeMode: true,
+            pagination: false,
+            navigation: false,
+            loop: false,
+        });
+        
+        // Bottom Navigation Active State
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Simulate user data (for demo)
+        console.log('Dashboard loaded - Ready for PHP integration');
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+:root {
+	--primary-color: #3b82f6;
+	--success-color: #10b981;
+	--warning-color: #f59e0b;
+	--danger-color: #ec4899;
+	--dark-color: #1e293b;
+	--light-color: #f8fafc;
+}
+body {
+	background-color: #0f172a;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	margin: 0;
+	padding: 0;
+}        
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+}		
+.ads-header {
+	background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+	padding: 2rem;
+	border-radius: 10px;
+	margin-bottom: 2rem;
+	text-align: center;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ads-header h1 {
+	font-weight: 700;
+	margin-bottom: 0.5rem;
+	color: #ffffff;
+}
+
+.ads-header p {
+	font-size: 1.2rem;
+	opacity: 0.9;
+	color: #ffffff;
+}
+
+.earnings-card {
+	background-color: #1e293b;
+	border-radius: 10px;
+	padding: 1.5rem;
+	margin-bottom: 2rem;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.earnings-card h3 {
+	color: var(--primary-color);
+	margin-bottom: 1.5rem;
+	font-weight: 600;
+}
+
+.earnings-stats {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	color: #ffffff;
+}
+
+.stat-item {
+	flex: 1;
+	text-align: center;
+	padding: 1rem;
+	border-radius: 8px;
+	background-color: #334155;
+}
+
+.stat-item .label {
+	font-size: 0.9rem;
+	opacity: 0.8;
+	margin-bottom: 0.5rem;
+}
+
+.stat-item .value {
+	font-size: 1.5rem;
+	font-weight: 700;
+}
+
+.total-earning .value {
+	color: var(--success-color);
+}
+
+.today-earning .value {
+	color: var(--primary-color);
+}
+
+.ads-card {
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	margin-bottom: 20px;
+	padding: 15px;
+	background-color: white;
+}
+.ads-card h5, .ads-card p{
+	color: black !important;
+}
+.disabled-btn {
+	pointer-events: none;
+	opacity: 0.6;
+}
+#timer {
+	font-weight: bold;
+	color: red;
+}
+#adModal, #btn-close{
+	color: black !important;
+}

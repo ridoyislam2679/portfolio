@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MobileStore Admin Panel</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --info: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --sidebar: #2d3748;
+            --sidebar-hover: #4a5568;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background: var(--sidebar);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            transition: all 0.3s;
+            z-index: 1000;
+            width: 250px;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: var(--primary);
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-menu {
+            padding: 15px 0;
+        }
+
+        .sidebar-menu .nav-link {
+            color: #cbd5e0;
+            padding: 12px 20px;
+            border-radius: 0;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-menu .nav-link:hover, 
+        .sidebar-menu .nav-link.active {
+            background: var(--sidebar-hover);
+            color: white;
+        }
+
+        .sidebar-menu .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .sidebar-menu .nav-link span {
+            font-size: 0.95rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            transition: all 0.3s;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logout-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .logout-btn:hover {
+            background: #d11465;
+        }
+
+        /* Form Styles */
+        .specification-form {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .form-section h4 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+            
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+            
+            .header {
+                padding: 15px;
+            }
+            
+            .mobile-menu-btn {
+                display: block !important;
+            }
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+
+        /* Overlay for mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+        
+        /* Ensure sidebar text is always visible */
+        .sidebar-menu .nav-link span {
+            display: inline !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Overlay for Mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Admin Panel</h2>
+        </div>
+        <div class="sidebar-menu">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="dashboard.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="add_brands.html">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Add Brands</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="list_brands.html">
+                        <i class="fas fa-list"></i>
+                        <span>List Brands</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="add_mobile.html">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Add Mobile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="list_mobile.html">
+                        <i class="fas fa-list-alt"></i>
+                        <span>List Mobile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">
+                        <i class="fas fa-cogs"></i>
+                        <span>Add Mobile Specification</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="add_article.html">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Add Article</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="article_list.html">
+                        <i class="fas fa-th-list"></i>
+                        <span>Article List</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="rating.html">
+                        <i class="fas fa-star"></i>
+                        <span>Rating</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="faqs.html">
+                        <i class="fas fa-question-circle"></i>
+                        <span>FAQs</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="highlights.html">
+                        <i class="fas fa-highlighter"></i>
+                        <span>Highlights</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Header -->
+        <div class="header d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <div class="d-flex align-items-center mb-3 mb-md-0">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo d-flex align-items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/906/906361.png" alt="Logo">
+                    <h1 class="ms-2 mb-0 fs-4">MobileStore Admin</h1>
+                </div>
+            </div>
+            <div class="user-info d-flex align-items-center w-100 justify-content-md-end justify-content-between">
+                <span class="me-3 d-none d-sm-block">Welcome, Admin User</span>
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Specification Form -->
+        <div class="specification-form">
+            <h2 class="mb-4">Add Mobile Specification</h2>
+            
+            <form action="process_specification.php" method="POST">
+                <!-- Basic Information -->
+                <div class="form-section">
+                    <h4>Basic Information</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="mobile_id" class="form-label">Mobile ID</label>
+                            <input type="number" class="form-control" id="mobile_id" name="mobile_id" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="brand_id" class="form-label">Brand ID</label>
+                            <input type="number" class="form-control" id="brand_id" name="brand_id" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="made_by" class="form-label">Made By</label>
+                            <input type="text" class="form-control" id="made_by" name="made_by">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dimensions & Build -->
+                <div class="form-section">
+                    <h4>Dimensions & Build</h4>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="height" class="form-label">Height</label>
+                            <input type="text" class="form-control" id="height" name="height">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="width" class="form-label">Width</label>
+                            <input type="text" class="form-control" id="width" name="width">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="thickness" class="form-label">Thickness</label>
+                            <input type="text" class="form-control" id="thickness" name="thickness">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="build" class="form-label">Build Material</label>
+                            <input type="text" class="form-control" id="build" name="build">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="weight" class="form-label">Weight</label>
+                            <input type="text" class="form-control" id="weight" name="weight">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="colors" class="form-label">Colors</label>
+                            <input type="text" class="form-control" id="colors" name="colors">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="water_resistant" class="form-label">Water Resistant</label>
+                            <input type="text" class="form-control" id="water_resistant" name="water_resistant">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Display -->
+                <div class="form-section">
+                    <h4>Display</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="display_type" class="form-label">Display Type</label>
+                            <input type="text" class="form-control" id="display_type" name="display_type">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="screen_size" class="form-label">Screen Size</label>
+                            <input type="text" class="form-control" id="screen_size" name="screen_size">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="resolution" class="form-label">Resolution</label>
+                            <input type="text" class="form-control" id="resolution" name="resolution">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="aspect_ratio" class="form-label">Aspect Ratio</label>
+                            <input type="text" class="form-control" id="aspect_ratio" name="aspect_ratio">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="refresh_rate" class="form-label">Refresh Rate</label>
+                            <input type="text" class="form-control" id="refresh_rate" name="refresh_rate">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Camera -->
+                <div class="form-section">
+                    <h4>Camera</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="main_camera_setup" class="form-label">Main Camera Setup</label>
+                            <input type="text" class="form-control" id="main_camera_setup" name="main_camera_setup">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="main_camera_resolution" class="form-label">Main Camera Resolution</label>
+                            <input type="text" class="form-control" id="main_camera_resolution" name="main_camera_resolution">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="selfie_camera_setup" class="form-label">Selfie Camera Setup</label>
+                            <input type="text" class="form-control" id="selfie_camera_setup" name="selfie_camera_setup">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="selfie_camera_resolution" class="form-label">Selfie Camera Resolution</label>
+                            <input type="text" class="form-control" id="selfie_camera_resolution" name="selfie_camera_resolution">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance -->
+                <div class="form-section">
+                    <h4>Performance</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="operating_system" class="form-label">Operating System</label>
+                            <input type="text" class="form-control" id="operating_system" name="operating_system">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="chipset" class="form-label">Chipset</label>
+                            <input type="text" class="form-control" id="chipset" name="chipset">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="cpu" class="form-label">CPU</label>
+                            <input type="text" class="form-control" id="cpu" name="cpu">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="gpu" class="form-label">GPU</label>
+                            <input type="text" class="form-control" id="gpu" name="gpu">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="ram" class="form-label">RAM</label>
+                            <input type="text" class="form-control" id="ram" name="ram">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="internal_storage" class="form-label">Internal Storage</label>
+                            <input type="text" class="form-control" id="internal_storage" name="internal_storage">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Battery -->
+                <div class="form-section">
+                    <h4>Battery</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="battery_type" class="form-label">Battery Type</label>
+                            <input type="text" class="form-control" id="battery_type" name="battery_type">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="capacity" class="form-label">Capacity</label>
+                            <input type="text" class="form-control" id="capacity" name="capacity">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="charging" class="form-label">Charging</label>
+                            <input type="text" class="form-control" id="charging" name="charging">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connectivity -->
+                <div class="form-section">
+                    <h4>Connectivity</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="network" class="form-label">Network</label>
+                            <input type="text" class="form-control" id="network" name="network">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="sim_slot" class="form-label">SIM Slot</label>
+                            <input type="text" class="form-control" id="sim_slot" name="sim_slot">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="wlan" class="form-label">WLAN</label>
+                            <input type="text" class="form-control" id="wlan" name="wlan">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="bluetooth" class="form-label">Bluetooth</label>
+                            <input type="text" class="form-control" id="bluetooth" name="bluetooth">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="usb" class="form-label">USB</label>
+                            <input type="text" class="form-control" id="usb" name="usb">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security & Sensors -->
+                <div class="form-section">
+                    <h4>Security & Sensors</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="fingerprint_sensor" class="form-label">Fingerprint Sensor</label>
+                            <input type="text" class="form-control" id="fingerprint_sensor" name="fingerprint_sensor">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="face_unlock" class="form-label">Face Unlock</label>
+                            <input type="text" class="form-control" id="face_unlock" name="face_unlock">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-save me-2"></i> Save Specification
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Mobile sidebar toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            
+            // Toggle sidebar on mobile
+            mobileMenuBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('mobile-open');
+                sidebarOverlay.classList.toggle('active');
+            });
+            
+            // Close sidebar when clicking on overlay
+            sidebarOverlay.addEventListener('click', function() {
+                sidebar.classList.remove('mobile-open');
+                sidebarOverlay.classList.remove('active');
+            });
+            
+            // Update active state for sidebar menu items
+            const menuItems = document.querySelectorAll('.sidebar-menu .nav-link');
+            
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove active class from all items
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // On mobile, close sidebar after clicking a menu item
+                    if (window.innerWidth < 768) {
+                        sidebar.classList.remove('mobile-open');
+                        sidebarOverlay.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

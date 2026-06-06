@@ -1,0 +1,98 @@
+<?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.html');
+    exit;
+}
+
+// Database configuration
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'gold_kinen');
+
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$user_id = $_SESSION['user_id'];
+
+$stmt = $conn->prepare("SELECT fullname, balance FROM users WHERE id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$user = $stmt->get_result()->fetch_assoc();
+
+$conn->close();
+?>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Deposit - Gold Kinen</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(180deg, #0a0a1a 0%, #0f0f2a 50%, #1a1a3e 100%); min-height: 100vh; color: #fff; padding-bottom: 80px; }
+        .main-content { max-width: 500px; margin: 0 auto; padding: 0 16px; }
+        .top-header { padding: 20px 0 10px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; background: linear-gradient(135deg, #FFD700, #FFA500); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .logo i { color: #FFD700; }
+        .back-btn { background: rgba(255, 215, 0, 0.15); border: none; width: 40px; height: 40px; border-radius: 50%; color: #FFD700; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        .balance-card { background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 165, 0, 0.08)); border-radius: 24px; padding: 30px 20px; margin-bottom: 20px; text-align: center; border: 1px solid rgba(255, 215, 0, 0.2); }
+        .balance-amount { font-size: 42px; font-weight: 800; color: #FFD700; }
+        .form-card { background: rgba(255, 255, 255, 0.05); border-radius: 24px; padding: 24px 20px; margin-bottom: 20px; border: 1px solid rgba(255, 215, 0, 0.1); }
+        .form-control { width: 100%; padding: 14px 16px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 12px; color: #fff; }
+        .submit-btn { width: 100%; background: linear-gradient(135deg, #FFD700, #FFA500); border: none; padding: 16px; border-radius: 50px; font-weight: 700; font-size: 18px; color: #0a0a1a; cursor: pointer; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10, 10, 26, 0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255, 215, 0, 0.15); padding: 10px 20px; max-width: 500px; margin: 0 auto; z-index: 1000; }
+        .nav-items { display: flex; justify-content: space-between; align-items: center; }
+        .nav-item { text-align: center; text-decoration: none; color: rgba(255, 255, 255, 0.5); flex: 1; }
+        .nav-item i { font-size: 22px; display: block; margin-bottom: 4px; }
+        .nav-item span { font-size: 11px; }
+        .nav-item.active { color: #FFD700; }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="top-header">
+            <a href="dashboard.php" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+            <div class="logo"><i class="fas fa-plus-circle"></i> ডিপোজিট</div>
+            <div style="width: 40px;"></div>
+        </div>
+        
+        <div class="balance-card">
+            <div class="balance-amount">৳ <?php echo number_format($user['balance'], 2); ?></div>
+            <div style="font-size: 14px; margin-top: 5px;">বর্তমান ব্যালেন্স</div>
+        </div>
+        
+        <div class="form-card">
+            <h4 style="margin-bottom: 20px;">ডিপোজিট করুন</h4>
+            <div class="mb-3">
+                <label>পরিমাণ (৳)</label>
+                <input type="number" class="form-control" placeholder="ন্যূনতম ৳ 100" min="100">
+            </div>
+            <div class="mb-3">
+                <label>পেমেন্ট মেথড</label>
+                <select class="form-control">
+                    <option>বিকাশ</option>
+                    <option>নগদ</option>
+                    <option>রকেট</option>
+                    <option>ব্যাংক ট্রান্সফার</option>
+                </select>
+            </div>
+            <button class="submit-btn">ডিপোজিট করুন</button>
+        </div>
+    </div>
+    
+    <div class="bottom-nav">
+        <div class="nav-items">
+            <a href="dashboard.php" class="nav-item"><i class="fas fa-home"></i><span>হোম</span></a>
+            <a href="my-team.php" class="nav-item"><i class="fas fa-users"></i><span>মাই টিম</span></a>
+            <a href="deposit.php" class="nav-item active"><i class="fas fa-plus-circle"></i><span>ডিপোজিট</span></a>
+            <a href="free-earning.php" class="nav-item"><i class="fas fa-gift"></i><span>ফ্রি আর্নিং</span></a>
+            <a href="settings.php" class="nav-item"><i class="fas fa-cog"></i><span>সেটিংস</span></a>
+        </div>
+    </div>
+</body>
+</html>

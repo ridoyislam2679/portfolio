@@ -1,0 +1,129 @@
+/* Settings Card */
+.settings-card {
+	max-width: 600px;
+	margin: 0 auto;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 24px;
+	padding: 30px;
+	border: 1px solid rgba(255, 215, 0, 0.15);
+}
+
+.settings-header {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.settings-header .icon {
+	width: 70px;
+	height: 70px;
+	background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 165, 0, 0.08));
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto 15px;
+}
+
+.settings-header .icon i {
+	font-size: 32px;
+	color: #FFD700;
+}
+
+.settings-header h2 {
+	font-size: 22px;
+	font-weight: 700;
+	margin-bottom: 5px;
+}
+
+.settings-header p {
+	font-size: 13px;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+/* Form Styles */
+.form-group {
+	margin-bottom: 20px;
+}
+
+.form-group label {
+	display: block;
+	margin-bottom: 8px;
+	font-size: 14px;
+	font-weight: 500;
+	color: rgba(255, 255, 255, 0.8);
+}
+
+.form-group label i {
+	color: #FFD700;
+	margin-right: 8px;
+}
+
+.form-control {
+	width: 100%;
+	padding: 14px 16px;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 215, 0, 0.2);
+	border-radius: 12px;
+	font-size: 15px;
+	color: #fff;
+	transition: all 0.2s ease;
+}
+
+.form-control:focus {
+	outline: none;
+	border-color: #FFD700;
+	background: rgba(255, 215, 0, 0.05);
+}
+
+.form-control::placeholder {
+	color: rgba(255, 255, 255, 0.4);
+}
+
+textarea.form-control {
+	resize: vertical;
+	min-height: 100px;
+}
+
+.submit-btn {
+	width: 100%;
+	background: linear-gradient(135deg, #FFD700, #FFA500);
+	border: none;
+	padding: 14px;
+	border-radius: 12px;
+	font-weight: 700;
+	font-size: 16px;
+	color: #0a0a1a;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.submit-btn:active {
+	transform: scale(0.98);
+}
+
+/* Image Preview */
+.image-preview {
+	margin-top: 10px;
+	display: none;
+}
+
+.image-preview img {
+	max-width: 100%;
+	max-height: 150px;
+	border-radius: 12px;
+	border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+/* Mobile Responsive */
+@media (max-width: 992px) {
+	.settings-card {
+		padding: 20px;
+		margin: 0 10px;
+	}
+}
+
+@media (max-width: 480px) {
+	.settings-header h2 {
+		font-size: 18px;
+	}
+}

@@ -1,0 +1,20 @@
+[18-Jul-2025 14:31:13 UTC] PHP Warning:  include_once(../db/index.php): Failed to open stream: No such file or directory in /home/refonexc/public_html/user/menual_deposite/auto-deposite-chack.php on line 2
+[18-Jul-2025 14:31:13 UTC] PHP Warning:  include_once(): Failed opening '../db/index.php' for inclusion (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/refonexc/public_html/user/menual_deposite/auto-deposite-chack.php on line 2
+[18-Jul-2025 14:31:16 UTC] PHP Warning:  include_once(header.php): Failed to open stream: No such file or directory in /home/refonexc/public_html/user/menual_deposite/deposite.php on line 4
+[18-Jul-2025 14:31:16 UTC] PHP Warning:  include_once(): Failed opening 'header.php' for inclusion (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/refonexc/public_html/user/menual_deposite/deposite.php on line 4
+[18-Jul-2025 14:31:16 UTC] PHP Warning:  include_once(../db/index.php): Failed to open stream: No such file or directory in /home/refonexc/public_html/user/menual_deposite/deposite.php on line 5
+[18-Jul-2025 14:31:16 UTC] PHP Warning:  include_once(): Failed opening '../db/index.php' for inclusion (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/refonexc/public_html/user/menual_deposite/deposite.php on line 5
+[18-Jul-2025 14:31:16 UTC] PHP Warning:  Undefined variable $pdo in /home/refonexc/public_html/user/menual_deposite/deposite.php on line 15
+[18-Jul-2025 14:31:16 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/refonexc/public_html/user/menual_deposite/deposite.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/refonexc/public_html/user/menual_deposite/deposite.php on line 15
+[18-Jul-2025 14:31:19 UTC] PHP Warning:  include_once(header.php): Failed to open stream: No such file or directory in /home/refonexc/public_html/user/menual_deposite/deposite.php on line 4
+[18-Jul-2025 14:31:19 UTC] PHP Warning:  include_once(): Failed opening 'header.php' for inclusion (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/refonexc/public_html/user/menual_deposite/deposite.php on line 4
+[18-Jul-2025 14:31:19 UTC] PHP Warning:  include_once(../db/index.php): Failed to open stream: No such file or directory in /home/refonexc/public_html/user/menual_deposite/deposite.php on line 5
+[18-Jul-2025 14:31:19 UTC] PHP Warning:  include_once(): Failed opening '../db/index.php' for inclusion (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/refonexc/public_html/user/menual_deposite/deposite.php on line 5
+[18-Jul-2025 14:31:19 UTC] PHP Warning:  Undefined variable $pdo in /home/refonexc/public_html/user/menual_deposite/deposite.php on line 15
+[18-Jul-2025 14:31:19 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/refonexc/public_html/user/menual_deposite/deposite.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/refonexc/public_html/user/menual_deposite/deposite.php on line 15

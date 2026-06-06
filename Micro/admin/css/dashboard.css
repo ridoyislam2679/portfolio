@@ -1,0 +1,154 @@
+:root {
+	--primary-color: #4e73df;
+	--sidebar-width: 250px;
+}
+
+body {
+	font-family: 'Nunito', sans-serif;
+	background-color: #f8f9fc;
+	overflow-x: hidden;
+}
+
+/* Top Header Styles */
+.top-header {
+	background-color: #0a3cca;
+	box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+	height: 70px;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 1030;
+	display: flex;
+	align-items: center;
+	padding: 0 20px;
+}
+
+.logo-container {
+	display: flex;
+	align-items: center;
+}
+
+.menu-toggle {
+	background: none;
+	border: none;
+	font-size: 1.25rem;
+	color: #6e707e;
+	margin-right: 10px;
+	display: none;
+}
+
+.logo img {
+	height: 40px;
+}
+
+.admin-name {
+	flex-grow: 1;
+	text-align: center;
+	font-weight: 600;
+	color: #fff;
+}
+
+.logout-btn {
+	background-color: var(--primary-color);
+	color: white;
+	border: none;
+	padding: 8px 15px;
+	border-radius: 5px;
+	font-weight: 500;
+	transition: all 0.3s;
+}
+
+.logout-btn:hover {
+	background-color: #2e59d9;
+	transform: translateY(-1px);
+}
+
+/* Sidebar Styles */
+.sidebar {
+	width: var(--sidebar-width);
+	background: linear-gradient(180deg, var(--primary-color) 10%, #224abe 100%);
+	position: fixed;
+	top: 70px;
+	left: 0;
+	height: calc(100vh - 70px);
+	transition: all 0.3s;
+	z-index: 1020;
+}
+
+.sidebar-nav {
+	padding: 0;
+	list-style: none;
+}
+
+.sidebar-item {
+	position: relative;
+}
+
+.sidebar-link {
+	display: block;
+	padding: 1rem 1.5rem;
+	color: rgba(255, 255, 255, 0.8);
+	text-decoration: none;
+	transition: all 0.3s;
+	font-weight: 500;
+}
+
+.sidebar-link:hover, .sidebar-link.active {
+	color: #fff;
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-link i {
+	margin-right: 10px;
+	width: 20px;
+	text-align: center;
+}
+
+/* Main Content Styles */
+.main-content {
+	margin-left: var(--sidebar-width);
+	margin-top: 70px;
+	padding: 20px;
+	min-height: calc(100vh - 70px);
+	transition: all 0.3s;
+}
+
+.card {
+	border: none;
+	border-radius: 0.35rem;
+	box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+	margin-bottom: 20px;
+}
+
+.card-header {
+	background-color: #f8f9fc;
+	border-bottom: 1px solid #e3e6f0;
+	padding: 1rem 1.35rem;
+	font-weight: 600;
+}
+
+@media (max-width: 768px) {
+	.menu-toggle {
+		display: block;
+	}
+	
+	.sidebar {
+		margin-left: -250px;
+	}
+	
+	.main-content {
+		margin-left: 0;
+	}
+	
+	.sidebar.active {
+		margin-left: 0;
+	}			
+}
+
+/* Task style */
+
+.task_image{
+    height: 60px;
+    width: auto;
+}

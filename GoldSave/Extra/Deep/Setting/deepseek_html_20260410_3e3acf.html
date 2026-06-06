@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Settings - Gold Kinen</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #0a0a1a 0%, #0f0f2a 50%, #1a1a3e 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding-bottom: 80px;
+        }
+        
+        /* Main Container */
+        .main-content {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        /* Top Header */
+        .top-header {
+            padding: 20px 0 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .logo i {
+            color: #FFD700;
+        }
+        
+        .back-btn {
+            background: rgba(255, 215, 0, 0.15);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: #FFD700;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        
+        .back-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* Profile Image Section */
+        .profile-image-section {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .profile-image-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #0a0a1a;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            overflow: hidden;
+        }
+        
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+        
+        .edit-icon {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #FFD700;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0a0a1a;
+            cursor: pointer;
+            border: 2px solid #0a0a1a;
+        }
+        
+        /* Settings Card */
+        .settings-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 24px 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .card-title i {
+            color: #FFD700;
+            margin-right: 8px;
+        }
+        
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .form-group label i {
+            color: #FFD700;
+            margin-right: 8px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 12px;
+            font-size: 15px;
+            color: #fff;
+            transition: all 0.2s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #FFD700;
+            background: rgba(255, 215, 0, 0.05);
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        
+        /* Update Button */
+        .update-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            color: #0a0a1a;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+        
+        .update-btn:active {
+            transform: scale(0.98);
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 215, 0, 0.15);
+            padding: 10px 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            z-index: 1000;
+        }
+        
+        .nav-items {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-item {
+            text-align: center;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.5);
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+        
+        .nav-item i {
+            font-size: 22px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .nav-item span {
+            font-size: 11px;
+        }
+        
+        .nav-item.active {
+            color: #FFD700;
+        }
+        
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+        
+        /* Toast Message */
+        .toast-message {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            z-index: 9999;
+            animation: fadeInUp 0.3s ease;
+        }
+        
+        .toast-message.error {
+            background: #dc3545;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        /* File Input Hidden */
+        #profileImageInput {
+            display: none;
+        }
+        
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: rgba(255, 215, 0, 0.1);
+            margin: 20px 0;
+        }
+        
+        /* Password Hint */
+        .password-hint {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 480px) {
+            .profile-image {
+                width: 80px;
+                height: 80px;
+                font-size: 40px;
+            }
+            
+            .edit-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <!-- Top Header -->
+        <div class="top-header">
+            <a href="dashboard.php" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div class="logo">
+                <i class="fas fa-cog"></i> সেটিংস
+            </div>
+            <div style="width: 40px;"></div>
+        </div>
+        
+        <!-- Profile Image Section -->
+        <div class="profile-image-section">
+            <div class="profile-image-container">
+                <div class="profile-image" id="profileImage">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="edit-icon" id="editImageBtn">
+                    <i class="fas fa-camera"></i>
+                </div>
+            </div>
+            <p style="font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 10px;">
+                <i class="fas fa-info-circle"></i> প্রোফাইল ছবি পরিবর্তন করতে ক্লিক করুন
+            </p>
+            <input type="file" id="profileImageInput" accept="image/jpeg,image/png,image/jpg">
+        </div>
+        
+        <!-- Update Name Card -->
+        <div class="settings-card">
+            <div class="card-title">
+                <i class="fas fa-user-edit"></i> নাম পরিবর্তন করুন
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> আপনার নাম</label>
+                <input type="text" id="fullname" class="form-control" placeholder="আপনার সম্পূর্ণ নাম লিখুন" value="মোঃ রহিম উদ্দিন">
+            </div>
+            <button class="update-btn" id="updateNameBtn">
+                <i class="fas fa-save"></i> নাম আপডেট করুন
+            </button>
+        </div>
+        
+        <!-- Change Password Card -->
+        <div class="settings-card">
+            <div class="card-title">
+                <i class="fas fa-lock"></i> পাসওয়ার্ড পরিবর্তন করুন
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-key"></i> বর্তমান পাসওয়ার্ড</label>
+                <input type="password" id="currentPassword" class="form-control" placeholder="বর্তমান পাসওয়ার্ড দিন">
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-lock"></i> নতুন পাসওয়ার্ড</label>
+                <input type="password" id="newPassword" class="form-control" placeholder="নতুন পাসওয়ার্ড দিন">
+                <div class="password-hint" id="passwordHint"></div>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-check-circle"></i> নতুন পাসওয়ার্ড পুনরায় লিখুন</label>
+                <input type="password" id="confirmPassword" class="form-control" placeholder="নতুন পাসওয়ার্ড আবার লিখুন">
+            </div>
+            <button class="update-btn" id="updatePasswordBtn">
+                <i class="fas fa-key"></i> পাসওয়ার্ড আপডেট করুন
+            </button>
+        </div>
+        
+        <!-- App Info Card -->
+        <div class="settings-card">
+            <div class="card-title">
+                <i class="fas fa-info-circle"></i> অ্যাপ তথ্য
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                <span style="color: rgba(255,255,255,0.6);">অ্যাপ ভার্সন</span>
+                <span style="color: #FFD700; font-weight: 600;">v2.0.0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                <span style="color: rgba(255,255,255,0.6);">ডেভেলপার</span>
+                <span style="color: #FFD700; font-weight: 600;">Gold Kinen Team</span>
+            </div>
+            <div class="divider"></div>
+            <button class="update-btn" id="logoutBtn" style="background: rgba(220, 53, 69, 0.8); color: white;">
+                <i class="fas fa-sign-out-alt"></i> লগআউট
+            </button>
+        </div>
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-items">
+            <a href="dashboard.php" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>হোম</span>
+            </a>
+            <a href="my-team.php" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>মাই টিম</span>
+            </a>
+            <a href="deposit.php" class="nav-item">
+                <i class="fas fa-plus-circle"></i>
+                <span>ডিপোজিট</span>
+            </a>
+            <a href="free-earning.php" class="nav-item">
+                <i class="fas fa-gift"></i>
+                <span>ফ্রি আর্নিং</span>
+            </a>
+            <a href="settings.php" class="nav-item active">
+                <i class="fas fa-cog"></i>
+                <span>সেটিংস</span>
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // DOM Elements
+        const profileImage = document.getElementById('profileImage');
+        const editImageBtn = document.getElementById('editImageBtn');
+        const profileImageInput = document.getElementById('profileImageInput');
+        const fullnameInput = document.getElementById('fullname');
+        const updateNameBtn = document.getElementById('updateNameBtn');
+        const currentPasswordInput = document.getElementById('currentPassword');
+        const newPasswordInput = document.getElementById('newPassword');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const updatePasswordBtn = document.getElementById('updatePasswordBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const passwordHint = document.getElementById('passwordHint');
+        
+        // Profile Image Change
+        editImageBtn.addEventListener('click', function() {
+            profileImageInput.click();
+        });
+        
+        profileImageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    profileImage.innerHTML = `<img src="${event.target.result}" alt="Profile">`;
+                    showToast('প্রোফাইল ছবি পরিবর্তন হয়েছে!', 'success');
+                    // Save to localStorage
+                    localStorage.setItem('profileImage', event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Load saved profile image from localStorage
+        const savedImage = localStorage.getItem('profileImage');
+        if (savedImage) {
+            profileImage.innerHTML = `<img src="${savedImage}" alt="Profile">`;
+        }
+        
+        // Load saved name from localStorage
+        const savedName = localStorage.getItem('fullname');
+        if (savedName) {
+            fullnameInput.value = savedName;
+        }
+        
+        // Update Name
+        updateNameBtn.addEventListener('click', function() {
+            const newName = fullnameInput.value.trim();
+            
+            if (!newName) {
+                showToast('দয়া করে আপনার নাম লিখুন!', 'error');
+                return;
+            }
+            
+            if (newName.length < 3) {
+                showToast('নাম কমপক্ষে ৩ অক্ষরের হতে হবে!', 'error');
+                return;
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('fullname', newName);
+            showToast('নাম সফলভাবে পরিবর্তন হয়েছে!', 'success');
+        });
+        
+        // Password Strength Checker
+        newPasswordInput.addEventListener('input', function() {
+            const password = this.value;
+            let strength = '';
+            let color = '';
+            
+            if (password.length === 0) {
+                passwordHint.innerHTML = '';
+                return;
+            }
+            
+            if (password.length < 6) {
+                strength = 'দুর্বল (কমপক্ষে ৬ অক্ষর)';
+                color = '#ff6b6b';
+            } else if (password.length >= 6 && password.length < 8) {
+                strength = 'মাঝারি (আরও শক্তিশালী করুন)';
+                color = '#FFD700';
+            } else if (password.length >= 8 && /[A-Z]/.test(password) && /[0-9]/.test(password)) {
+                strength = 'শক্তিশালী';
+                color = '#6bff8b';
+            } else if (password.length >= 8) {
+                strength = 'ভাল (বড় হাতের অক্ষর ও সংখ্যা যোগ করুন)';
+                color = '#FFD700';
+            } else {
+                strength = 'দুর্বল';
+                color = '#ff6b6b';
+            }
+            
+            passwordHint.innerHTML = `<i class="fas fa-shield-alt"></i> পাসওয়ার্ড শক্তি: <span style="color: ${color};">${strength}</span>`;
+        });
+        
+        // Update Password
+        updatePasswordBtn.addEventListener('click', function() {
+            const currentPassword = currentPasswordInput.value;
+            const newPassword = newPasswordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            
+            if (!currentPassword) {
+                showToast('দয়া করে বর্তমান পাসওয়ার্ড লিখুন!', 'error');
+                return;
+            }
+            
+            if (!newPassword) {
+                showToast('দয়া করে নতুন পাসওয়ার্ড লিখুন!', 'error');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                showToast('নতুন পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!', 'error');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showToast('নতুন পাসওয়ার্ড মিলছে না!', 'error');
+                return;
+            }
+            
+            // Check if current password matches saved password (demo)
+            const savedPassword = localStorage.getItem('password');
+            if (savedPassword && savedPassword !== currentPassword) {
+                showToast('বর্তমান পাসওয়ার্ড ভুল!', 'error');
+                return;
+            }
+            
+            // Save new password to localStorage
+            localStorage.setItem('password', newPassword);
+            
+            // Clear fields
+            currentPasswordInput.value = '';
+            newPasswordInput.value = '';
+            confirmPasswordInput.value = '';
+            passwordHint.innerHTML = '';
+            
+            showToast('পাসওয়ার্ড সফলভাবে পরিবর্তন হয়েছে!', 'success');
+        });
+        
+        // Logout
+        logoutBtn.addEventListener('click', function() {
+            if (confirm('আপনি কি লগআউট করতে চান?')) {
+                // Clear session storage
+                localStorage.removeItem('isLoggedIn');
+                showToast('লগআউট হচ্ছে...', 'success');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1000);
+            }
+        });
+        
+        // Toast Message Function
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = 'toast-message';
+            if (type === 'error') {
+                toast.classList.add('error');
+            }
+            toast.innerHTML = `<i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'check-circle'}"></i> ${message}`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+        
+        // Initialize demo data
+        if (!localStorage.getItem('password')) {
+            localStorage.setItem('password', '123456');
+        }
+        
+        // Check if user is logged in (demo)
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (!isLoggedIn && window.location.pathname.includes('settings.html')) {
+            // Just for demo, don't redirect automatically
+            console.log('Demo mode - settings page accessible');
+        }
+    </script>
+</body>
+</html>

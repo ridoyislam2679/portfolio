@@ -1,0 +1,8 @@
+ALTER TABLE gold_price DROP INDEX date;
+ALTER TABLE bonus_coin DROP INDEX date;
+deposit table ENUM cancle add and number add 
+recharge table ENUM rejected Add
+
+add table withdraw(1).sql
+add table marque.sql
+sql 9 

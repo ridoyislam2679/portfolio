@@ -1,0 +1,791 @@
+<?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.html');
+    exit;
+}
+
+// Database configuration
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'gold_kinen');
+
+// Get user data from database
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$user_id = $_SESSION['user_id'];
+
+$stmt = $conn->prepare("SELECT fullname, mobile, balance, gold, coins FROM users WHERE id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+
+// Update session
+$_SESSION['user_balance'] = $user['balance'];
+
+$conn->close();
+?>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Donate - Gold Kinen</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #0a0a1a 0%, #0f0f2a 50%, #1a1a3e 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding-bottom: 30px;
+        }
+        
+        /* Main Container */
+        .main-content {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        /* Top Header */
+        .top-header {
+            padding: 20px 0 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .logo i {
+            color: #FFD700;
+        }
+        
+        .back-btn {
+            background: rgba(255, 215, 0, 0.15);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: #FFD700;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        
+        .back-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* Slider Styles */
+        .slider-section {
+            margin-bottom: 20px;
+        }
+        
+        .slider-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 165, 0, 0.04));
+            border-radius: 30px;
+            padding: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+        }
+        
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide {
+            display: none;
+            text-align: center;
+            animation: fadeEffect 0.5s ease;
+        }
+        
+        .slide.active {
+            display: block;
+        }
+        
+        @keyframes fadeEffect {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .slide-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 50px;
+            color: #0a0a1a;
+        }
+        
+        .slide-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .slide-desc {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .slide-goal {
+            margin-top: 12px;
+            font-size: 12px;
+            color: #FFD700;
+        }
+        
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .slider-nav-btn {
+            background: rgba(255, 215, 0, 0.15);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            color: #FFD700;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .slider-nav-btn:active {
+            transform: scale(0.9);
+        }
+        
+        .slider-dots {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .dot.active {
+            background: #FFD700;
+            width: 24px;
+            border-radius: 10px;
+        }
+        
+        /* Balance Card */
+        .balance-card {
+            background: rgba(255, 215, 0, 0.08);
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+        }
+        
+        .balance-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .balance-amount {
+            font-size: 24px;
+            font-weight: 800;
+            color: #FFD700;
+        }
+        
+        /* Form Card */
+        .form-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 24px 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+        
+        .form-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .form-title i {
+            color: #FFD700;
+            margin-right: 8px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .form-group label i {
+            color: #FFD700;
+            margin-right: 8px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 12px;
+            font-size: 16px;
+            color: #fff;
+            transition: all 0.2s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #FFD700;
+            background: rgba(255, 215, 0, 0.05);
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        /* Amount Preset Buttons */
+        .amount-presets {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .preset-btn {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            color: #FFD700;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        
+        .preset-btn:active {
+            transform: scale(0.95);
+            background: rgba(255, 215, 0, 0.2);
+        }
+        
+        /* Result Card */
+        .result-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 20px 0;
+        }
+        
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+        
+        .result-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .result-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFD700;
+        }
+        
+        .result-value.negative {
+            color: #ff6b6b;
+        }
+        
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border: none;
+            padding: 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 18px;
+            color: #0a0a1a;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        /* Message Styles */
+        .form-message {
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: none;
+            font-size: 14px;
+        }
+        
+        .form-message.error {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid #dc3545;
+            color: #ff6b6b;
+            display: block;
+        }
+        
+        .form-message.success {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid #28a745;
+            color: #6bff8b;
+            display: block;
+        }
+        
+        .info-text {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.4);
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .heart-icon {
+            color: #ff4444;
+            animation: heartbeat 1.5s ease infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        @media (max-width: 480px) {
+            .amount-presets {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .slide-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <!-- Top Header -->
+        <div class="top-header">
+            <a href="dashboard.php" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div class="logo">
+                <i class="fas fa-coins"></i> Gold Kinen
+            </div>
+            <div style="width: 40px;"></div>
+        </div>
+        
+        <!-- Slider Section (Like Home Page) -->
+        <div class="slider-section">
+            <div class="slider-card">
+                <div class="slider-container">
+                    <div class="slide active" data-index="0">
+                        <div class="slide-icon">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <h3 class="slide-title">রিনা বেগম</h3>
+                        <p class="slide-desc">সিরিয়াস অসুস্থ, জরুরি চিকিৎসা প্রয়োজন</p>
+                        <div class="slide-goal">🎯 লক্ষ্য: ৳ 50,000 | সংগ্রহ: ৳ 25,000</div>
+                    </div>
+                    
+                    <div class="slide" data-index="1">
+                        <div class="slide-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3 class="slide-title">করিম পরিবার</h3>
+                        <p class="slide-desc">বন্যায় ঘর হারানো পরিবারকে সহায়তা</p>
+                        <div class="slide-goal">🎯 লক্ষ্য: ৳ 30,000 | সংগ্রহ: ৳ 15,000</div>
+                    </div>
+                    
+                    <div class="slide" data-index="2">
+                        <div class="slide-icon">
+                            <i class="fas fa-wheelchair"></i>
+                        </div>
+                        <h3 class="slide-title">আব্দুল গফুর</h3>
+                        <p class="slide-desc">শারীরিক প্রতিবন্ধী, হুইলচেয়ার প্রয়োজন</p>
+                        <div class="slide-goal">🎯 লক্ষ্য: ৳ 20,000 | সংগ্রহ: ৳ 8,000</div>
+                    </div>
+                    
+                    <div class="slide" data-index="3">
+                        <div class="slide-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="slide-title">সাদিয়া আক্তার</h3>
+                        <p class="slide-desc">মেধাবী ছাত্রী, উচ্চ শিক্ষার জন্য সহায়তা</p>
+                        <div class="slide-goal">🎯 লক্ষ্য: ৳ 100,000 | সংগ্রহ: ৳ 45,000</div>
+                    </div>
+                </div>
+                
+                <div class="slider-controls">
+                    <button class="slider-nav-btn" id="prevSlide">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="slider-dots" id="sliderDots">
+                        <span class="dot active" data-dot="0"></span>
+                        <span class="dot" data-dot="1"></span>
+                        <span class="dot" data-dot="2"></span>
+                        <span class="dot" data-dot="3"></span>
+                    </div>
+                    <button class="slider-nav-btn" id="nextSlide">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Balance Card -->
+        <div class="balance-card">
+            <div class="balance-label">
+                <i class="fas fa-wallet"></i> আপনার ব্যালেন্স
+            </div>
+            <div class="balance-amount" id="userBalance">৳ <?php echo number_format($user['balance'], 2); ?></div>
+        </div>
+        
+        <!-- Message Container -->
+        <div id="formMessage" class="form-message"></div>
+        
+        <!-- Donate Form -->
+        <form id="donateForm" method="POST" action="process_donate.php" autocomplete="off">
+            <input type="hidden" name="csrf_token" id="csrfToken" value="">
+            <input type="hidden" name="campaign_id" id="campaignId" value="0">
+            
+            <div class="form-card">
+                <div class="form-title">
+                    <i class="fas fa-hand-holding-heart heart-icon"></i> দান করুন
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-user-friends"></i> দানের উদ্দেশ্য</label>
+                    <select name="campaign" id="campaignSelect" class="form-control">
+                        <option value="0">রিনা বেগম - চিকিৎসা সহায়তা</option>
+                        <option value="1">করিম পরিবার - বন্যার্ত সহায়তা</option>
+                        <option value="2">আব্দুল গফুর - হুইলচেয়ার</option>
+                        <option value="3">সাদিয়া আক্তার - শিক্ষা সহায়তা</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-money-bill-wave"></i> দানের পরিমাণ (৳)</label>
+                    <div class="amount-presets">
+                        <div class="preset-btn" data-amount="50">৳ ৫০</div>
+                        <div class="preset-btn" data-amount="100">৳ ১০০</div>
+                        <div class="preset-btn" data-amount="200">৳ ২০০</div>
+                        <div class="preset-btn" data-amount="500">৳ ৫০০</div>
+                        <div class="preset-btn" data-amount="1000">৳ ১,০০০</div>
+                        <div class="preset-btn" data-amount="2000">৳ ২,০০০</div>
+                        <div class="preset-btn" data-amount="5000">৳ ৫,০০০</div>
+                        <div class="preset-btn" data-amount="10000">৳ ১০,০০০</div>
+                    </div>
+                    <input type="number" 
+                           name="donate_amount" 
+                           id="donateAmount" 
+                           class="form-control" 
+                           placeholder="অথবা নিজের মত টাকা লিখুন"
+                           min="10"
+                           step="10"
+                           autocomplete="off"
+                           style="margin-top: 10px;">
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-comment"></i> আপনার বার্তা (ঐচ্ছিক)</label>
+                    <textarea name="message" id="message" class="form-control" placeholder="আপনার মূল্যবান মতামত দিন..."></textarea>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-row">
+                        <span class="result-label"><i class="fas fa-hand-holding-heart"></i> দান করার পর</span>
+                        <span class="result-value" id="remainingBalance">৳ <?php echo number_format($user['balance'], 2); ?></span>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-heart"></i> দান করুন
+                </button>
+            </div>
+        </form>
+        
+        <div class="info-text">
+            <i class="fas fa-shield-alt"></i> আপনার দান সম্পূর্ণ নিরাপদে গ্রহণ করা হবে। দান করার পর টাকা আপনার ব্যালেন্স থেকে কেটে নেওয়া হবে।
+        </div>
+    </div>
+    
+    <script>
+        // PHP data passed to JavaScript
+        const USER_BALANCE = <?php echo $user['balance']; ?>;
+        
+        // Campaign data
+        const campaigns = [
+            { id: 0, name: "রিনা বেগম - চিকিৎসা সহায়তা", raised: 25000, goal: 50000 },
+            { id: 1, name: "করিম পরিবার - বন্যার্ত সহায়তা", raised: 15000, goal: 30000 },
+            { id: 2, name: "আব্দুল গফুর - হুইলচেয়ার", raised: 8000, goal: 20000 },
+            { id: 3, name: "সাদিয়া আক্তার - শিক্ষা সহায়তা", raised: 45000, goal: 100000 }
+        ];
+        
+        // Generate CSRF token
+        function generateCSRFToken() {
+            return Math.random().toString(36).substring(2) + Date.now().toString(36);
+        }
+        document.getElementById('csrfToken').value = generateCSRFToken();
+        
+        // DOM Elements
+        const donateAmountInput = document.getElementById('donateAmount');
+        const remainingBalanceSpan = document.getElementById('remainingBalance');
+        const submitBtn = document.getElementById('submitBtn');
+        const messageDiv = document.getElementById('formMessage');
+        const campaignSelect = document.getElementById('campaignSelect');
+        
+        // Calculate function
+        function calculateDonate() {
+            let amount = parseFloat(donateAmountInput.value);
+            const userBalance = USER_BALANCE;
+            
+            if (isNaN(amount) || amount <= 0) {
+                remainingBalanceSpan.innerHTML = `৳ ${userBalance.toFixed(2)}`;
+                return;
+            }
+            
+            const remaining = userBalance - amount;
+            
+            if (remaining < 0) {
+                remainingBalanceSpan.innerHTML = `<span style="color: #ff6b6b;">৳ ${remaining.toFixed(2)} (অপর্যাপ্ত)</span>`;
+            } else {
+                remainingBalanceSpan.innerHTML = `৳ ${remaining.toFixed(2)}`;
+            }
+            
+            // Validation
+            if (amount < 10) {
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.6';
+            } else if (amount > userBalance) {
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.6';
+            } else {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                messageDiv.style.display = 'none';
+            }
+        }
+        
+        function showMessage(message, type) {
+            messageDiv.innerHTML = `<i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'check-circle'}"></i> ${message}`;
+            messageDiv.className = `form-message ${type}`;
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                if (messageDiv.style.display === 'block') {
+                    messageDiv.style.display = 'none';
+                }
+            }, 5000);
+        }
+        
+        // Update campaign ID when selection changes
+        campaignSelect.addEventListener('change', function() {
+            document.getElementById('campaignId').value = this.value;
+        });
+        
+        // Event listeners
+        donateAmountInput.addEventListener('input', calculateDonate);
+        
+        // Preset buttons
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const amount = this.getAttribute('data-amount');
+                donateAmountInput.value = amount;
+                calculateDonate();
+                if (parseFloat(amount) <= USER_BALANCE && parseFloat(amount) >= 10) {
+                    messageDiv.style.display = 'none';
+                }
+            });
+        });
+        
+        // ========== SLIDER FUNCTIONALITY ==========
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const prevBtn = document.getElementById('prevSlide');
+        const nextBtn = document.getElementById('nextSlide');
+        let currentIndex = 0;
+        let autoInterval;
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            if (index < 0) index = slides.length - 1;
+            if (index >= slides.length) index = 0;
+            currentIndex = index;
+            
+            slides[currentIndex].classList.add('active');
+            dots[currentIndex].classList.add('active');
+        }
+        
+        function nextSlide() { showSlide(currentIndex + 1); }
+        function prevSlide() { showSlide(currentIndex - 1); }
+        
+        function startAutoSlide() {
+            if (autoInterval) clearInterval(autoInterval);
+            autoInterval = setInterval(nextSlide, 4000);
+        }
+        
+        function stopAutoSlide() {
+            if (autoInterval) clearInterval(autoInterval);
+        }
+        
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                stopAutoSlide();
+                prevSlide();
+                startAutoSlide();
+            });
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                stopAutoSlide();
+                nextSlide();
+                startAutoSlide();
+            });
+        }
+        
+        dots.forEach((dot, idx) => {
+            dot.addEventListener('click', () => {
+                stopAutoSlide();
+                showSlide(idx);
+                startAutoSlide();
+            });
+        });
+        
+        startAutoSlide();
+        
+        // Form submission
+        const donateForm = document.getElementById('donateForm');
+        
+        donateForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const amount = parseFloat(donateAmountInput.value);
+            const campaignId = document.getElementById('campaignId').value;
+            const campaignName = campaignSelect.options[campaignSelect.selectedIndex].text;
+            const message = document.getElementById('message').value;
+            const userBalance = USER_BALANCE;
+            
+            // Validation
+            if (isNaN(amount) || amount <= 0) {
+                showMessage('দয়া করে দানের পরিমাণ লিখুন', 'error');
+                return;
+            }
+            
+            if (amount < 10) {
+                showMessage('সর্বনিম্ন দানের পরিমাণ ৳ ১০', 'error');
+                return;
+            }
+            
+            if (amount > userBalance) {
+                showMessage(`অপর্যাপ্ত ব্যালেন্স! আপনার ব্যালেন্স ৳ ${userBalance.toLocaleString()}`, 'error');
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> প্রসেসিং...';
+            
+            // Update CSRF token
+            document.getElementById('csrfToken').value = generateCSRFToken();
+            
+            // Submit to PHP (uncomment in production)
+            // this.submit();
+            
+            // Demo simulation (remove in production)
+            setTimeout(() => {
+                showMessage(`সফলভাবে ৳ ${amount} দান হয়েছে! "${campaignName}" ক্যাম্পেইনে আপনার সহায়তার জন্য ধন্যবাদ।`, 'success');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-heart"></i> দান করুন';
+                donateAmountInput.value = '';
+                document.getElementById('message').value = '';
+                calculateDonate();
+                
+                setTimeout(() => {
+                    // window.location.href = 'dashboard.php';
+                }, 2000);
+            }, 1500);
+        });
+        
+        // Initialize
+        calculateDonate();
+        document.getElementById('campaignId').value = '0';
+    </script>
+</body>
+</html>

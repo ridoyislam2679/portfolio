@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Marketing Drop - Gold Kinen</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/marketting.css">
+	
+</head>
+<body>
+    <div class="main-content">
+        <!-- Top Header -->
+        <div class="top-header">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div class="logo">
+                <i class="fas fa-coins"></i> Gold Kinen
+            </div>
+            <div style="width: 40px;"></div>
+        </div>
+        
+        <?php if ($hasSubmitted): ?>
+            <!-- Already Submitted Today -->
+            <div class="submitted-card">
+                <i class="fas fa-check-circle"></i>
+                <h3>আজকে আপনি ইতিমধ্যে সাবমিট করেছেন!</h3>
+                <p>আপনার সাবমিট করা লিংক: <?php echo htmlspecialchars($submission['post_link']); ?></p>
+                <p style="margin-top: 10px;">আপনি <?php echo $submission['reward_coins']; ?> কয়েন পেয়েছেন!</p>
+                <p>আগামীকাল আবার চেষ্টা করুন।</p>
+            </div>
+        <?php else: ?>
+        
+        <!-- Today's Post Card -->
+        <div class="post-card">
+            <div class="post-badge">
+                <i class="fas fa-calendar-day"></i> আজকের পোস্ট
+            </div>
+            <div class="post-title">
+                <?php echo $todayPost ? htmlspecialchars($todayPost['title']) : 'আজকের জন্য কোন পোস্ট নেই'; ?>
+            </div>
+            <div class="post-description">
+                <?php echo $todayPost ? nl2br(htmlspecialchars($todayPost['description'])) : 'দয়া করে পরে আবার চেষ্টা করুন।'; ?>
+            </div>
+            <?php if ($todayPost && $todayPost['hashtags']): ?>
+            <div class="post-hashtags">
+                <?php 
+                $hashtags = explode(',', $todayPost['hashtags']);
+                foreach ($hashtags as $tag): ?>
+                    <span class="hashtag">#<?php echo trim(htmlspecialchars($tag)); ?></span>
+                <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
+        </div>
+        
+        <!-- Reward Card -->
+        <div class="reward-card">
+            <div class="reward-label">
+                <i class="fas fa-gift"></i> সফল সাবমিটে পুরস্কার
+            </div>
+            <div class="reward-amount">
+                + <?php echo $todayPost ? $todayPost['reward_coins'] : 0; ?> কয়েন
+            </div>
+        </div>
+        
+        <!-- Conditions Card -->
+        <div class="conditions-card">
+            <div class="conditions-title">
+                <i class="fas fa-clipboard-list"></i> পোস্ট করার শর্তাবলী
+            </div>
+            <ul class="condition-list">
+                <li><i class="fas fa-check-circle"></i> পোস্টটি আপনার ফেসবুক/ইনস্টাগ্রাম/টুইটার একাউন্টে পাবলিক করতে হবে</li>
+                <li><i class="fas fa-check-circle"></i> পোস্টের ক্যাপশনে <span class="hashtag" style="background: rgba(255,215,0,0.2);">#GoldKinen</span> এবং <span class="hashtag" style="background: rgba(255,215,0,0.2);">#GoldKinenBangladesh</span> হ্যাশট্যাগ ব্যবহার করতে হবে</li>
+                <li><i class="fas fa-check-circle"></i> পোস্টের স্ক্রিনশট বা লিংক সঠিকভাবে দিতে হবে</li>
+                <li><i class="fas fa-check-circle"></i> প্রতিদিন শুধুমাত্র ১ বার পোস্ট সাবমিট করা যাবে</li>
+                <li><i class="fas fa-check-circle"></i> পোস্টটি ২৪ ঘন্টা পর্যন্ত পাবলিক রাখতে হবে</li>
+                <li><i class="fas fa-check-circle"></i> এডমিন দ্বারা ভেরিফাই করার পর কয়েন প্রদান করা হবে</li>
+            </ul>
+        </div>
+        
+        <!-- Message Container -->
+        <div id="formMessage" class="form-message"></div>
+        
+        <!-- Submit Form -->
+        <form id="marketingForm" method="POST" action="process_marketing.php" autocomplete="off">
+            <input type="hidden" name="csrf_token" id="csrfToken" value="">
+            <input type="hidden" name="post_id" id="postId" value="<?php echo $todayPost ? $todayPost['id'] : 0; ?>">
+            <input type="hidden" name="reward_coins" id="rewardCoins" value="<?php echo $todayPost ? $todayPost['reward_coins'] : 0; ?>">
+            
+            <div class="form-card">
+                <div class="form-title">
+                    <i class="fas fa-share-alt"></i> আপনার পোস্টের লিংক সাবমিট করুন
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fab fa-facebook"></i> সোশ্যাল মিডিয়া প্ল্যাটফর্ম</label>
+                    <div class="platform-buttons">
+                        <div class="platform-btn facebook" data-platform="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                            <span>ফেসবুক</span>
+                        </div>
+                        <div class="platform-btn instagram" data-platform="instagram">
+                            <i class="fab fa-instagram"></i>
+                            <span>ইনস্টাগ্রাম</span>
+                        </div>
+                        <div class="platform-btn twitter" data-platform="twitter">
+                            <i class="fab fa-twitter"></i>
+                            <span>টুইটার</span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="platform" id="platform" value="facebook">
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-link"></i> পোস্টের লিংক</label>
+                    <input type="url" 
+                           name="post_link" 
+                           id="postLink" 
+                           class="form-control" 
+                           placeholder="https://facebook.com/your-post-link"
+                           required>
+                    <small style="font-size: 11px; color: rgba(255,255,255,0.4);">পোস্টটির সরাসরি লিংক দিন</small>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-image"></i> পোস্টের স্ক্রিনশট (ঐচ্ছিক)</label>
+                    <input type="text" 
+                           name="screenshot_url" 
+                           id="screenshotUrl" 
+                           class="form-control" 
+                           placeholder="ছবির লিংক দিন (যদি থাকে)">
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> সাবমিট করুন
+                </button>
+            </div>
+        </form>
+        
+        <div class="info-text">
+            <i class="fas fa-clock"></i> সাবমিট করার পর এডমিন আপনার পোস্ট ভেরিফাই করে কয়েন প্রদান করবেন। দয়া করে পোস্টটি ২৪ ঘন্টা পাবলিক রাখুন।
+        </div>
+        
+        <?php endif; ?>
+    </div>
+    
+    <script>
+        // Platform selection
+        const platformBtns = document.querySelectorAll('.platform-btn');
+        const platformInput = document.getElementById('platform');
+        
+        platformBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                platformBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const platform = this.getAttribute('data-platform');
+                platformInput.value = platform;
+            });
+        });
+        
+        // Generate CSRF token
+        function generateCSRFToken() {
+            return Math.random().toString(36).substring(2) + Date.now().toString(36);
+        }
+        document.getElementById('csrfToken').value = generateCSRFToken();
+        
+        // Form submission
+        const form = document.getElementById('marketingForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const messageDiv = document.getElementById('formMessage');
+        
+        function showMessage(message, type) {
+            messageDiv.innerHTML = `<i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'check-circle'}"></i> ${message}`;
+            messageDiv.className = `form-message ${type}`;
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                if (messageDiv.style.display === 'block') {
+                    messageDiv.style.display = 'none';
+                }
+            }, 5000);
+        }
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const postLink = document.getElementById('postLink').value.trim();
+            const platform = platformInput.value;
+            
+            if (!postLink) {
+                showMessage('দয়া করে আপনার পোস্টের লিংক দিন', 'error');
+                return;
+            }
+            
+            // Basic URL validation
+            if (!postLink.startsWith('http://') && !postLink.startsWith('https://')) {
+                showMessage('দয়া করে সম্পূর্ণ লিংক দিন (http:// অথবা https:// সহ)', 'error');
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> সাবমিট হচ্ছে...';
+            
+            // Update CSRF token
+            document.getElementById('csrfToken').value = generateCSRFToken();
+            
+            // Submit to PHP (uncomment in production)
+            // this.submit();
+            
+            // Demo simulation (remove in production)
+            setTimeout(() => {
+                showMessage(`সফলভাবে সাবমিট হয়েছে! আপনার পোস্টটি পর্যালোচনা করা হবে এবং ${document.getElementById('rewardCoins').value} কয়েন প্রদান করা হবে।`, 'success');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> সাবমিট করুন';
+                document.getElementById('postLink').value = '';
+                
+                setTimeout(() => {
+                    // window.location.reload();
+                }, 2000);
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
