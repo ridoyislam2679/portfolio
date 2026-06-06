@@ -1,0 +1,105 @@
+.news-section {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.news-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #003366;
+}
+
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.news-card {
+  background-color: #f5f8fb;
+  padding: 20px;
+  border-left: 5px solid #0056b3;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  transition: transform 0.2s ease;
+}
+
+.news-card:hover {
+  transform: translateY(-3px);
+}
+
+.news-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.news-card a {
+  text-decoration: none;
+  color: #0056b3;
+  font-weight: 500;
+}
+
+.news-card a:hover {
+  color: #002b66;
+  text-decoration: underline;
+}
+
+.news-card p {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  color: #444;
+}
+
+.news-date {
+  font-size: 0.85rem;
+  color: #eee;
+}
+
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.page-link {
+  text-decoration: none;
+  padding: 8px 14px;
+  background: #e0eaf5;
+  color: #003366;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.page-link:hover {
+  background: #cddcf0;
+}
+
+.page-link.active {
+  background: #0056b3;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .news-title {
+    font-size: 2rem;
+  }
+
+  .news-card {
+    padding: 15px;
+  }
+
+  .pagination {
+    gap: 6px;
+  }
+
+  .page-link {
+    padding: 6px 12px;
+  }
+}

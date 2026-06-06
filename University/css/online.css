@@ -1,0 +1,34 @@
+.online_container{
+	padding: 1px;
+	margin-bottom: 80px;
+}
+.online_servicce {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 25px;
+  color: #1a1a1a;
+}
+.service-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.service-item {
+  display: block;
+  background-color: #eaeaea;
+  padding: 14px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.service-item:hover {
+  background-color: #dcdcdc;
+  color: #000;
+}

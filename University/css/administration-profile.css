@@ -1,0 +1,52 @@
+/* Main section styling */
+.profile-main {
+  max-width: 800px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.profile-section {
+  margin-bottom: 30px;
+}
+
+.profile-section h2 {
+  font-size: 22px;
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.profile-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.profile-section li {
+  padding: 8px 0;
+  font-size: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-section li strong {
+  color: #333;
+}
+
+/* Basic info with photo */
+.info-wrapper {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.admin-photo {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #ddd;
+}
