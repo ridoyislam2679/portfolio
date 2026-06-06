@@ -1,0 +1,244 @@
+.qty-box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.qty-box button {
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+}
+.qty-box input {
+	width: 60px;
+	text-align: center;
+	margin: 0 5px;
+}
+img.cart-image {
+    height: 100px;
+    width: 60%;
+}
+a.shop-link {
+	color: #fff;
+	text-decoration: none;
+}
+@media screen and (max-width: 600px) {
+  table, thead, tbody, th, td, tr {
+		display: block;
+	}
+  thead {
+		display: none; /* header লুকিয়ে দেবে */
+	}
+  td {
+		position: relative;
+		padding-left: 50%;
+	}
+  td::before {
+		position: absolute;
+		left: 10px;
+		white-space: nowrap;
+		content: attr(data-label); /* custom label দেখাবে */
+	}
+  img.cart-image {
+		height: auto;
+		width: 60%;
+	}
+}
+
+/* Order Modal Styles */
+.order-modal .modal-content {
+	border-radius: 15px;
+	overflow: hidden;
+}
+
+.order-modal .modal-header {
+	background: var(--primary-color);
+	color: white;
+	padding: 20px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.payment-options {
+	margin-bottom: 20px;
+}
+
+.payment-card {
+	border: 2px solid var(--light-color);
+	border-radius: 10px;
+	padding: 15px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.payment-card.selected {
+	border-color: var(--primary-color);
+	background: rgba(39, 174, 96, 0.1);
+}
+
+.payment-card:hover {
+	border-color: var(--primary-color);
+}
+
+.payment-icon {
+	font-size: 1.5rem;
+	margin-right: 10px;
+	color: var(--dark-color);
+}
+
+
+
+.btn-confirm {
+	background: var(--primary-color);
+	color: white;
+	border: none;
+	padding: 12px 30px;
+	font-weight: 600;
+	border-radius: 30px;
+	width: 100%;
+	margin-top: 20px;
+	transition: all 0.3s;
+}
+
+.btn-confirm:hover {
+	background: #219653;
+}
+
+.user-details-form {
+	margin-top: 20px;
+}
+
+.form-label {
+	font-weight: 600;
+	color: var(--dark-color);
+	margin-bottom: 8px;
+}
+
+/* payment page style */
+.card {
+	border-radius: 15px;
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+.card-header {
+	border-radius: 15px 15px 0 0 !important;
+	background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+	color: white;
+}
+.form-control:focus {
+	border-color: #0dcaf0;
+	box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
+}
+.btn-primary {
+	background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+	border: none;
+}
+.btn-primary:hover {
+	background: linear-gradient(45deg, #0b5ed7, #0ba8c8);
+}
+.input-group-text {
+	background-color: #e9ecef;
+}
+.logo {
+	font-weight: bold;
+	font-size: 1.5rem;
+}
+.required-label:after {
+	content: " *";
+	color: red;
+}
+
+/* Cart Toast */
+.toast-notification {
+	position: fixed;
+	bottom: 100px;
+	right: 30px;
+	background: blue;
+	border-radius: 8px;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	transform: translateX(150%);
+	transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+	z-index: 1000;
+	max-width: 400px;
+}
+
+.toast-notification.active {
+	transform: translateX(0);
+}
+
+.toast-icon {
+	width: 50px;
+	height: 50px;
+	background: #4cd964;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 15px;
+	flex-shrink: 0;
+}
+
+.toast-icon i {
+	color: white;
+	font-size: 24px;
+}
+
+.toast-content {
+	flex-grow: 1;
+}
+
+.toast-message {
+	font-weight: 500;
+	margin-bottom: 5px;
+	color: #fff;
+}
+
+.toast-buttons {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+.toast-btn {
+	padding: 6px 12px;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+	font-weight: 500;
+	transition: all 0.3s;
+	text-decoration: none;
+	color: #fff;
+}
+
+.view-cart {
+	background: #4a6bdf;
+	color: white;
+}
+
+.view-cart:hover {
+	background: #3a5bce;
+}
+
+.okay-btn {
+	background: #f1f2f6;
+	color: #2c3e50;
+}
+
+.okay-btn:hover {
+	background: #dfe4ea;
+}
+
+@media (max-width: 600px) {
+	.toast-notification {
+		bottom: 20px;
+		right: 20px;
+		left: 20px;
+		max-width: none;
+	}
+	
+	.product-display {
+		padding: 20px 10px;
+	}
+}

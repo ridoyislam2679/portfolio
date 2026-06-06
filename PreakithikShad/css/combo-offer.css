@@ -1,0 +1,144 @@
+/* Combo Offers Section */
+.combo-section {
+	padding: 40px 0;
+	padding-top: 40px;
+}
+
+section.cmb-section {
+    padding-top: 40px;
+}
+
+.best-section-title, .relation-section-title, .combo-section-title {
+	position: relative;
+	margin-bottom: 13px;
+	text-align: center;
+	padding-bottom: 18px;
+	font-weight: 700;
+	color: var(--dark-color);
+}
+
+.relation-section-title{
+	padding-top: 45px;
+	padding-bottom: 25px;
+}
+
+.section-title:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 80px;
+	height: 3px;
+	background: var(--primary-color);
+}
+
+.combo-card {
+	border: none;
+	border-radius: 10px;
+	overflow: hidden;
+	transition: all 0.3s;
+	margin-bottom: 20px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+	background: white;
+	cursor: pointer;
+}
+
+.combo-card:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.combo-img {
+	height: 200px;
+	object-fit: cover;
+}
+
+.combo-badge {
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	background: var(--secondary-color);
+	color: white;
+	padding: 5px 10px;
+	border-radius: 5px;
+	font-weight: 600;
+}
+
+.combo-title {
+	font-weight: 600;
+	margin-bottom: 5px;
+	color: var(--dark-color);
+}
+
+.combo-products {
+	font-size: 0.9rem;
+	color: #6c757d;
+	margin-bottom: 10px;
+}
+
+.combo-price {
+	color: var(--primary-color);
+	font-weight: 700;
+	font-size: 1.2rem;
+}
+
+.combo-old-price {
+	text-decoration: line-through;
+	color: #6c757d;
+	font-size: 0.9rem;
+	margin-left: 10px;
+}
+
+.combo-save {
+	background: #e74c3c;
+	color: white;
+	padding: 3px 8px;
+	border-radius: 4px;
+	font-size: 0.8rem;
+	margin-left: 10px;
+}
+
+.cart-button {
+    margin-top: 17px;
+}
+
+/* Best Selling Products */
+.best-selling {
+	padding: 40px 0;
+	background-color: var(--light-color);
+}
+
+.product-card {
+	border: none;
+	border-radius: 10px;
+	overflow: hidden;
+	transition: all 0.3s;
+	margin-bottom: 20px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+	background: white;
+	cursor: pointer;
+}
+
+.product-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.product-img {
+	height: 180px;
+	object-fit: cover;
+}
+
+.product-title {
+	font-weight: 600;
+	margin-bottom: 5px;
+	color: var(--dark-color);
+	font-size: 1rem;
+}
+
+.product-price {
+	color: var(--primary-color);
+	font-weight: 700;
+}
+
